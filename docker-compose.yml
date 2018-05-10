@@ -1,0 +1,20 @@
+version: '2'
+services:
+  database:
+    build: database
+  application:
+    depends_on:
+      - database
+    build: application
+    volumes: 
+      - application-volume:/opt/antrags_analyse_tool
+  webserver:
+    depends_on:
+      - application
+    build: webserver
+    ports:
+      - "8080:80"
+    volumes: 
+      - application-volume:/opt/antrags_analyse_tool
+volumes:
+  application-volume:
